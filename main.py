@@ -66,7 +66,7 @@ if __name__ == "__main__":
     goal = input("你想学习什么？例如：Python 多 Agent：").strip()
 
     hours_text = input("每天可以学习几小时？例如：1：").strip()
-    days_text = input("计划学习多少天？例如：14：").strip()
+    days_text = input("计划学习多少天？例如：15：").strip()
 
     try:
         hours = float(hours_text)
