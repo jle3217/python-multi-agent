@@ -1,0 +1,506 @@
+app:
+  description: '[赞]'
+  icon: '+1'
+  icon_background: '#D5F5F6'
+  icon_type: emoji
+  mode: workflow
+  name: 写作流水线助手
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: bdim/zhipuai_web_search:0.1.1@f588d64271249bb231108e2231812f24a71a07b0f5e6ed4585ab8704d87535e5
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.25@32f56796c4f9c3949f2a8cde44a5912f347b5a141dd7daf100048aeefd5e6593
+    version: null
+kind: app
+version: 0.7.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload: {}
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        sourceType: start
+        targetType: tool
+      id: 1790038635805-source-1790039085836-target
+      source: '1790038635805'
+      sourceHandle: source
+      target: '1790039085836'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        sourceType: tool
+        targetType: llm
+      id: 1790039085836-source-1790042278909-target
+      source: '1790039085836'
+      sourceHandle: source
+      target: '1790042278909'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        sourceType: llm
+        targetType: llm
+      id: 1790042278909-source-1790043062425-target
+      source: '1790042278909'
+      sourceHandle: source
+      target: '1790043062425'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        sourceType: llm
+        targetType: end
+      id: 1790043062425-source-1790043265510-target
+      source: '1790043062425'
+      sourceHandle: source
+      target: '1790043265510'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: 写作主题topic
+        selected: false
+        title: 用户输入
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: 写作主题
+          options: []
+          placeholder: ''
+          required: true
+          type: paragraph
+          variable: topic
+      height: 137
+      id: '1790038635805'
+      position:
+        x: -144.20534317456412
+        y: 220.8327870539319
+      positionAbsolute:
+        x: -144.20534317456412
+        y: 220.8327870539319
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        desc: 检索网络资料
+        is_team_authorization: false
+        meta: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: The search query or question
+            ja_JP: The search query or question
+            pt_BR: A consulta ou pergunta de pesquisa
+            zh_Hans: 搜索查询或问题
+          input_schema: null
+          label:
+            en_US: Search Query
+            ja_JP: Search Query
+            pt_BR: Consulta de Pesquisa
+            zh_Hans: 搜索查询
+          llm_description: The search terms or question to be processed. Use clear
+            and specific queries for best results.
+          max: null
+          min: null
+          multiple: false
+          name: search_query
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: search_pro
+          form: form
+          human_description:
+            en_US: Search engine to use (default is search_pro)
+            ja_JP: Search engine to use (default is search_pro)
+            pt_BR: Motor de busca a usar (padrão é search_pro)
+            zh_Hans: 使用的搜索引擎（默认为search_pro）
+          input_schema: null
+          label:
+            en_US: Search Engine
+            ja_JP: Search Engine
+            pt_BR: Motor de Busca
+            zh_Hans: 搜索引擎
+          llm_description: Specifies which search engine to use. Default is "search_pro"
+            for best results.
+          max: null
+          min: null
+          multiple: false
+          name: search_engine
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: 10
+          form: form
+          human_description:
+            en_US: Number of search results to return (1-50, default 10)
+            ja_JP: Number of search results to return (1-50, default 10)
+            pt_BR: Número de resultados de pesquisa a retornar (1-50, padrão 10)
+            zh_Hans: 返回的搜索结果数量（1-50，默认10）
+          input_schema: null
+          label:
+            en_US: Result Count
+            ja_JP: Result Count
+            pt_BR: Contagem de Resultados
+            zh_Hans: 结果数量
+          llm_description: The number of search results to return, ranging from 1
+            to 50. Default is 10.
+          max: 50
+          min: 1
+          multiple: false
+          name: count
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: number
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Only access content from specified domain (e.g., www.example.com)
+            ja_JP: Only access content from specified domain (e.g., www.example.com)
+            pt_BR: Acessar apenas conteúdo do domínio especificado (por exemplo, www.example.com)
+            zh_Hans: 仅访问指定域名的内容（例如：www.example.com）
+          input_schema: null
+          label:
+            en_US: Domain Filter
+            ja_JP: Domain Filter
+            pt_BR: Filtro de Domínio
+            zh_Hans: 域名过滤
+          llm_description: Restrict search results to a specific domain. Example "www.sohu.com"
+          max: null
+          min: null
+          multiple: false
+          name: search_domain_filter
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: noLimit
+          form: form
+          human_description:
+            en_US: Filter search results by date range
+            ja_JP: Filter search results by date range
+            pt_BR: Filtrar resultados de pesquisa por intervalo de datas
+            zh_Hans: 按日期范围过滤搜索结果
+          input_schema: null
+          label:
+            en_US: Recency Filter
+            ja_JP: Recency Filter
+            pt_BR: Filtro de Recência
+            zh_Hans: 时间过滤
+          llm_description: Constrains results to specific time periods. Options include
+            "noLimit", "day", "week", "month", "year"
+          max: null
+          min: null
+          multiple: false
+          name: search_recency_filter
+          options:
+          - icon: ''
+            label:
+              en_US: No Limit
+              ja_JP: No Limit
+              pt_BR: Sem Limite
+              zh_Hans: 无限制
+            value: noLimit
+          - icon: ''
+            label:
+              en_US: Past Day
+              ja_JP: Past Day
+              pt_BR: Último Dia
+              zh_Hans: 过去一天
+            value: day
+          - icon: ''
+            label:
+              en_US: Past Week
+              ja_JP: Past Week
+              pt_BR: Última Semana
+              zh_Hans: 过去一周
+            value: week
+          - icon: ''
+            label:
+              en_US: Past Month
+              ja_JP: Past Month
+              pt_BR: Último Mês
+              zh_Hans: 过去一个月
+            value: month
+          - icon: ''
+            label:
+              en_US: Past Year
+              ja_JP: Past Year
+              pt_BR: Último Ano
+              zh_Hans: 过去一年
+            value: year
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: select
+        - auto_generate: null
+          default: medium
+          form: form
+          human_description:
+            en_US: Control the length of returned summaries
+            ja_JP: Control the length of returned summaries
+            pt_BR: Controlar o comprimento dos resumos retornados
+            zh_Hans: 控制返回摘要的长度
+          input_schema: null
+          label:
+            en_US: Content Size
+            ja_JP: Content Size
+            pt_BR: Tamanho do Conteúdo
+            zh_Hans: 内容大小
+          llm_description: Controls the length of web page summaries returned. Options
+            are "low", "medium", "high"
+          max: null
+          min: null
+          multiple: false
+          name: content_size
+          options:
+          - icon: ''
+            label:
+              en_US: Low
+              ja_JP: Low
+              pt_BR: Baixo
+              zh_Hans: 简短
+            value: low
+          - icon: ''
+            label:
+              en_US: Medium
+              ja_JP: Medium
+              pt_BR: Médio
+              zh_Hans: 中等
+            value: medium
+          - icon: ''
+            label:
+              en_US: High
+              ja_JP: High
+              pt_BR: Alto
+              zh_Hans: 详细
+            value: high
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: select
+        params:
+          content_size: ''
+          count: ''
+          search_domain_filter: ''
+          search_engine: ''
+          search_query: ''
+          search_recency_filter: ''
+        plugin_id: bdim/zhipuai_web_search
+        plugin_unique_identifier: bdim/zhipuai_web_search:0.1.1@f588d64271249bb231108e2231812f24a71a07b0f5e6ed4585ab8704d87535e5
+        provider_icon: /console/api/workspaces/current/plugin/icon?tenant_id=8148f415-bbcc-475c-a9f1-726866c10140&filename=1cccdc4f8303d6998e77f9fb6aa8122d3f5d9cb58fc90cbcdf430a42aa03bb03.svg
+        provider_icon_dark: null
+        provider_id: bdim/zhipuai_web_search/zhipuai
+        provider_name: bdim/zhipuai_web_search/zhipuai
+        provider_show_name: 智谱AI网页搜索
+        provider_type: builtin
+        selected: false
+        title: 网页搜索
+        tool_configurations:
+          content_size:
+            type: constant
+            value: medium
+          count:
+            type: constant
+            value: 10
+          search_engine:
+            type: mixed
+            value: search_pro
+          search_recency_filter:
+            type: constant
+            value: noLimit
+        tool_description: 使用智谱AI网页搜索API进行网络搜索，支持高级过滤选项
+        tool_label: 网页搜索
+        tool_name: zhipuai_web_search
+        tool_node_version: '2'
+        tool_parameters:
+          search_domain_filter:
+            type: mixed
+            value: ''
+          search_query:
+            type: mixed
+            value: '{{#1790038635805.topic#}}'
+        type: tool
+      height: 194
+      id: '1790039085836'
+      position:
+        x: 160.08296746782491
+        y: 357.2956726393004
+      positionAbsolute:
+        x: 160.08296746782491
+        y: 357.2956726393004
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: '主题 + 搜索资料 '
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 0421713b-03ee-4373-a30a-e03232cb4d3b
+          role: system
+          text: 你是一名专业的中文写作助手。 你的任务是根据用户的写作主题以及联网检索得到的资料， 撰写一篇结构清晰、逻辑严谨、内容准确的中文文章。
+            要求： 1. 结合检索到的资料进行写作。 2. 不要凭空编造事实。 3. 如果资料不足，不要虚构数据。 4. 文章结构要清晰，可以包含标题、引言、正文和结论。
+            5. 语言自然、连贯，避免明显的 AI 套话。
+        - id: 0e4b821f-1dba-4b60-afe0-e9e47c4021c3
+          role: user
+          text: 写作主题： {{#1790038635805.topic#}} 检索资料： {{#1790039085836.text#}} 请根据以上信息撰写文章初稿。
+        selected: true
+        title: LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 116
+      id: '1790042278909'
+      position:
+        x: 457.5274193720413
+        y: 226.8267485836671
+      positionAbsolute:
+        x: 457.5274193720413
+        y: 226.8267485836671
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: '检查 + 修改文章 '
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 33d77abe-13bf-4194-b251-9ca2f110e303
+          role: system
+          text: 你是一名资深中文编辑。 请对输入的文章初稿进行审核和润色。 重点检查： 1. 文章结构是否合理 2. 逻辑是否连贯 3. 是否存在重复内容
+            4. 表述是否准确 5. 语言是否自然 6. 是否存在明显的事实错误 7. 标题与正文是否一致 在不改变核心观点的情况下优化文章。 只输出润色后的最终文章，
+            不要输出“审核意见”“修改说明”等额外内容。
+        - id: 85e2e706-bf60-46d1-aff7-905fd0f3cd7e
+          role: user
+          text: 用户的写作主题：{{#1790038635805.topic#}} 文章初稿：{{#1790042278909.text#}}请审核并润色后输出最终文章。
+        selected: false
+        title: LLM 2
+        type: llm
+        vision:
+          enabled: false
+      height: 116
+      id: '1790043062425'
+      position:
+        x: 725.4047535410741
+        y: 352.5984917035517
+      positionAbsolute:
+        x: 725.4047535410741
+        y: 352.5984917035517
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        outputs:
+        - value_selector:
+          - '1790043062425'
+          - text
+          value_type: string
+          variable: text
+        selected: false
+        title: 输出
+        type: end
+      height: 89
+      id: '1790043265510'
+      position:
+        x: 1014.7358333940253
+        y: 445.288599983246
+      positionAbsolute:
+        x: 1014.7358333940253
+        y: 445.288599983246
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    viewport:
+      x: -188.53938245842824
+      y: 97.6261463495672
+      zoom: 1.0849848840356227
+  rag_pipeline_variables: []
